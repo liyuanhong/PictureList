@@ -81,7 +81,9 @@ public class MainActivity extends ListActivity{
             }
 
             holder.text.setText(DATA[position]);
-            
+            for(int i = 0;i < 100;i++){
+            	mIcon[i] = null;
+            }
             
             mIcon[position] = BitmapFactory.decodeResource(context.getResources(),cat[position]); 
             holder.icon.setImageBitmap(mIcon[position]);    //100张图片的情况

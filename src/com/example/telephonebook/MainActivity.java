@@ -45,7 +45,7 @@ public class MainActivity extends ListActivity{
             mInflater = LayoutInflater.from(context);
             this.context = context;
 //            for(int i = 0;i < 100;i++){
-//            	mIcon[i] = BitmapFactory.decodeResource(context.getResources(),cat[i]);        //添加100张图片
+//            	mIcon[i] = BitmapFactory.decodeResource(context.getResources(),cat[i]);        //添加100张图片++++++这样做会导致内存越界的问题
 //            }
 //            mIcon2 = BitmapFactory.decodeResource(context.getResources(),cat[0]);           //取出其中一张图片
         }
@@ -81,13 +81,15 @@ public class MainActivity extends ListActivity{
             }
 
             holder.text.setText(DATA[position]);
+            
+            /** 这个循环的作用在于清空数组所装载的图片，来腾出内存，防止内存越界，程序停止*/
             for(int i = 0;i < 100;i++){
             	mIcon[i] = null;
             }
             
-            mIcon[position] = BitmapFactory.decodeResource(context.getResources(),cat[position]); 
-            holder.icon.setImageBitmap(mIcon[position]);    //100张图片的情况
-            Log.d("tag","+++++++++++++++++++++++++++++++++++++||||||" + position);
+            mIcon[position] = BitmapFactory.decodeResource(context.getResources(),cat[position]); //只加载当前显示的图片
+            holder.icon.setImageBitmap(mIcon[position]);    
+ //           Log.d("tag","+++++++++++++++++++++++++++++++++++++||||||" + position);     //这是我做的实验，让每次显示下面的图片时打印出图片的信息，这让我知道了每次加载新图片时getView方法都会执行
  //         holder.icon.setImageBitmap(mIcon2);          //1张图片的情况
             return convertView;           
         }

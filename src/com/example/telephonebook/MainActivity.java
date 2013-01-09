@@ -18,6 +18,7 @@ public class MainActivity extends ListActivity{
         private LayoutInflater mInflater;
         private Bitmap mIcon[] = new Bitmap[100];
         private Bitmap mIcon2;
+        private Context context;
         private int cat[] = {R.drawable.cat1,R.drawable.cat2,R.drawable.cat3,R.drawable.cat4,R.drawable.cat5,
         		R.drawable.cat6,R.drawable.cat7,R.drawable.cat8,R.drawable.cat9,R.drawable.cat10,
         		R.drawable.cat11,R.drawable.cat12,R.drawable.cat13,R.drawable.cat14,R.drawable.cat51,
@@ -38,14 +39,14 @@ public class MainActivity extends ListActivity{
         		R.drawable.cat86,R.drawable.cat87,R.drawable.cat87,R.drawable.cat89,R.drawable.cat90,
         		R.drawable.cat91,R.drawable.cat92,R.drawable.cat93,R.drawable.cat94,R.drawable.cat95,
         		R.drawable.cat96,R.drawable.cat97,R.drawable.cat97,R.drawable.cat99,R.drawable.cat100
-        		
         		};
 
         public EfficientAdapter(Context context) {            
-            mInflater = LayoutInflater.from(context);	
-            for(int i = 0;i < 100;i++){
-            	mIcon[i] = BitmapFactory.decodeResource(context.getResources(),cat[i]);        //添加100张图片
-            }
+            mInflater = LayoutInflater.from(context);
+            this.context = context;
+//            for(int i = 0;i < 100;i++){
+//            	mIcon[i] = BitmapFactory.decodeResource(context.getResources(),cat[i]);        //添加100张图片
+//            }
 //            mIcon2 = BitmapFactory.decodeResource(context.getResources(),cat[0]);           //取出其中一张图片
         }
 
@@ -82,10 +83,11 @@ public class MainActivity extends ListActivity{
             holder.text.setText(DATA[position]);
             
             
-            
+            mIcon[position] = BitmapFactory.decodeResource(context.getResources(),cat[position]); 
             holder.icon.setImageBitmap(mIcon[position]);    //100张图片的情况
+            Log.d("tag","+++++++++++++++++++++++++++++++++++++||||||" + position);
  //         holder.icon.setImageBitmap(mIcon2);          //1张图片的情况
-            return convertView;
+            return convertView;           
         }
         
         static class ViewHolder {
